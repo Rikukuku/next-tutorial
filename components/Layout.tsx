@@ -1,16 +1,22 @@
+import { FC } from "react";
 import Head from "next/head";
 import styles from "./layout.module.css";
 import utilsStyles from "../styles/utils.module.css";
 import Link from "next/link";
+import { ReactNode } from "react";
 
 const name = "Riku";
 export const siteTitle = "Next.js Samplen Website";
 
-const Layout = ({ children, home }) => {
+type LayoutProps = {
+  children: ReactNode;
+  home?: boolean;
+};
+const Layout: FC<LayoutProps> = ({ children, home }) => {
   return (
     <div className={styles.container}>
       <Head>
-        <link rek="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="Learn how to build a website" />
         <meta
           property="og:image"
