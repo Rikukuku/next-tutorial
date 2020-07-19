@@ -3,24 +3,28 @@ import path from "path";
 import matter from "gray-matter";
 import remark from "remark";
 import html from "remark-html";
+type allPostData = {
+  id: string;
+  title?: string;
+  date?: string;
+};
 
 const postsDirectory = path.join(process.cwd(), "posts");
 export function getSortedPostsData() {
   const fileNames = fs.readdirSync(postsDirectory);
-  const allPostData = fileNames.map((fileName) => {
+  const allPostData: allPostData[] = fileNames.map((fileName) => {
     const id = fileName.replace(/\.md$/, "");
     const fullPath = path.join(postsDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, "utf8");
 
     const matterResult = matter(fileContents);
-
     return {
       id,
       ...matterResult.data,
     };
   });
   return allPostData.sort((a, b) => {
-    if (a.data < b.data) {
+    if (a.date < b.date) {
       return 1;
     } else {
       return -1;
