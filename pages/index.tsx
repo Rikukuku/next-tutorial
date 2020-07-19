@@ -4,6 +4,7 @@ import utilsStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
 import Link from "next/link";
 import Date from "../components/date";
+import { GetStaticProps } from "next";
 
 export default function Home({ allPostsData }) {
   return (
@@ -37,21 +38,11 @@ export default function Home({ allPostsData }) {
     </Layout>
   );
 }
-// work on ssg
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData();
   return {
     props: {
       allPostsData,
     },
   };
-}
-// work on ssr
-// export async function getServerSideProps(context) {
-//   return{
-//     props: {}
-//   }
-// }
-// Build時にデータを取得する => SSG(ただし開発環境ではリクエスト時にgetStaticPropsが発動する)
-// リクエスト時にデータを取得する => SSR(getServerSidePropsを使用する)
-// データ不要の部分だけssgしてクライアントサイドでデータfetchすることも可能
+};
